@@ -7,9 +7,9 @@
         public int movCount { get; protected set; }
         public Board board { get; protected set; }
 
-        public Piece(Position position, Board board, Colour colour)
+        public Piece(Board board, Colour colour)
         {
-            this.position = position;
+            this.position = null;
             this.board = board;
             this.colour = colour;
             this.movCount = 0;
