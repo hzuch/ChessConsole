@@ -10,15 +10,24 @@ namespace ChessConsole
         {
             try
             {
-                Board board = new Board(8, 8);
+                ChessGame game = new ChessGame();
 
-                board.addPiece(new Rook(board, Colour.Black), new Position(0, 0));
-                board.addPiece(new Rook(board, Colour.White), new Position(5, 0));
-                board.addPiece(new Rook(board, Colour.Black), new Position(0, 5));
-                board.addPiece(new King(board, Colour.White), new Position(1, 0));
-                board.addPiece(new King(board, Colour.Black), new Position(1, 4));
+                while (!game.finished)
+                {
+                    Console.Clear();
+                    Screen.printBoard(game.board);
+                    Console.WriteLine();
 
-                Screen.printBoard(board);
+                    Console.Write("enter origin: ");
+                    Position origin = Screen.readPositionChess().toPosition();
+                    Console.Write("enter target: ");
+                    Position target = Screen.readPositionChess().toPosition();
+
+                    game.makeMove(origin, target);
+
+                }
+
+                
 
             }
             catch (BoardException e)
