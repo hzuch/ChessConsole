@@ -30,6 +30,11 @@ namespace chess
         private void addPieces()
         {
             board.addPiece(new Rook(board, Colour.White), new PositionChess('c',1).toPosition());
+            board.addPiece(new Rook(board, Colour.White), new PositionChess('c',2).toPosition());
+            board.addPiece(new Rook(board, Colour.White), new PositionChess('d',2).toPosition());
+            board.addPiece(new Rook(board, Colour.White), new PositionChess('e',2).toPosition());
+            board.addPiece(new Rook(board, Colour.White), new PositionChess('e',1).toPosition());
+            board.addPiece(new King(board, Colour.White), new PositionChess('d',1).toPosition());
 
         }
     }

@@ -20,6 +20,12 @@ namespace ChessConsole
 
                     Console.Write("enter origin: ");
                     Position origin = Screen.readPositionChess().toPosition();
+
+                    bool[,] possiblePositions = game.board.piece(origin).possibleMoves();
+                    
+                    Console.Clear();
+                    Screen.printBoard(game.board, possiblePositions);
+
                     Console.Write("enter target: ");
                     Position target = Screen.readPositionChess().toPosition();
 
