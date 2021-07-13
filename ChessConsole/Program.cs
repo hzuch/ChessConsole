@@ -14,23 +14,35 @@ namespace ChessConsole
 
                 while (!game.finished)
                 {
-                    Console.Clear();
-                    Screen.printBoard(game.board);
-                    Console.WriteLine();
+                    try
+                    {
+                        Console.Clear();
+                        Screen.printBoard(game.board);
+                        Console.WriteLine();
+                        Console.WriteLine("Turn: " + game.turn);
+                        Console.WriteLine("Awaiting move: " + game.activePlayer);
+                        Console.WriteLine();
 
-                    Console.Write("enter origin: ");
-                    Position origin = Screen.readPositionChess().toPosition();
+                        Console.Write("Enter origin: ");
+                        Position origin = Screen.readPositionChess().toPosition();
+                        game.validateOriginPosition(origin);
 
-                    bool[,] possiblePositions = game.board.piece(origin).possibleMoves();
-                    
-                    Console.Clear();
-                    Screen.printBoard(game.board, possiblePositions);
+                        bool[,] possiblePositions = game.board.piece(origin).possibleMoves();
 
-                    Console.Write("enter target: ");
-                    Position target = Screen.readPositionChess().toPosition();
+                        Console.Clear();
+                        Screen.printBoard(game.board, possiblePositions);
 
-                    game.makeMove(origin, target);
+                        Console.Write("Enter target: ");
+                        Position target = Screen.readPositionChess().toPosition();
+                        game.validateTargetPosition(origin, target);
 
+                        game.playTurn(origin, target);
+                    }
+                    catch (BoardException e)
+                    {
+                        Console.WriteLine(e.Message);
+                        Console.ReadLine();
+                    }
                 }
 
                 
