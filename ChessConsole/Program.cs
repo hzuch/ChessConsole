@@ -17,10 +17,8 @@ namespace ChessConsole
                     try
                     {
                         Console.Clear();
-                        Screen.printBoard(game.board);
-                        Console.WriteLine();
-                        Console.WriteLine("Turn: " + game.turn);
-                        Console.WriteLine("Awaiting move: " + game.activePlayer);
+                        Screen.printGame(game);
+                        
                         Console.WriteLine();
 
                         Console.Write("Enter origin: ");
