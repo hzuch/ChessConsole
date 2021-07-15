@@ -19,6 +19,10 @@
         {
             moveCount++;
         }
+        public void decrementMoveCount()
+        {
+            moveCount--;
+        }
 
         public bool possibleMovesExist()
         {
