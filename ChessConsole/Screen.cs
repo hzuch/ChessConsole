@@ -15,10 +15,18 @@ namespace ChessConsole
             printCapturedPieces(game);
             Console.WriteLine();
             Console.WriteLine("Turn: " + game.turn);
-            Console.WriteLine("Awaiting move: " + game.activePlayer);
-            if (game.check)
+            if (!game.finished)
             {
-                Console.WriteLine("CHECK!");
+                Console.WriteLine("Awaiting move: " + game.activePlayer);
+                if (game.check)
+                {
+                    Console.WriteLine("CHECK!");
+                }
+            }
+            else
+            {
+                Console.WriteLine("CHECKMATE");
+                Console.WriteLine("Winner: " + game.activePlayer);
             }
             
         }
