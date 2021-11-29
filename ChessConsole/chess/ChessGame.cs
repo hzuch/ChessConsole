@@ -35,6 +35,26 @@ namespace chess
             {
                 captured.Add(capturedPiece);
             }
+
+            // #specialmove castling - short
+            if (p is King && target.column == origin.column + 2)
+            {
+                Position originR = new Position(origin.line, origin.column + 3);
+                Position targetR = new Position(origin.line, origin.column + 1);
+                Piece R = board.removePiece(originR);
+                R.incrementMoveCount();
+                board.addPiece(R, targetR);
+            }
+            // #specialmove castling - long
+            if (p is King && target.column == origin.column - 2)
+            {
+                Position originR = new Position(origin.line, origin.column - 4);
+                Position targetR = new Position(origin.line, origin.column - 1);
+                Piece R = board.removePiece(originR);
+                R.incrementMoveCount();
+                board.addPiece(R, targetR);
+            }
+
             return capturedPiece;
         }
 
@@ -48,6 +68,25 @@ namespace chess
                 captured.Remove(capturedPiece);
             }
             board.addPiece(p, origin);
+
+            // #specialmove castling - short
+            if (p is King && target.column == origin.column + 2)
+            {
+                Position originR = new Position(origin.line, origin.column + 3);
+                Position targetR = new Position(origin.line, origin.column + 1);
+                Piece R = board.removePiece(targetR);
+                R.decrementMoveCount();
+                board.addPiece(R, originR);
+            }
+            // #specialmove castling - short
+            if (p is King && target.column == origin.column - 2)
+            {
+                Position originR = new Position(origin.line, origin.column - 4);
+                Position targetR = new Position(origin.line, origin.column - 1);
+                Piece R = board.removePiece(targetR);
+                R.decrementMoveCount();
+                board.addPiece(R, originR);
+            }
         }
 
         public void playTurn(Position origin, Position target)
@@ -228,7 +267,7 @@ namespace chess
             placeNewPiece('b', 1, new Knight(board, Colour.White));
             placeNewPiece('c', 1, new Bishop(board, Colour.White));
             placeNewPiece('d', 1, new Queen(board, Colour.White));
-            placeNewPiece('e', 1, new King(board, Colour.White));
+            placeNewPiece('e', 1, new King(board, Colour.White, this));
             placeNewPiece('f', 1, new Bishop(board, Colour.White));
             placeNewPiece('g', 1, new Knight(board, Colour.White));
             placeNewPiece('h', 1, new Rook(board, Colour.White));
@@ -245,7 +284,7 @@ namespace chess
             placeNewPiece('b', 8, new Knight(board, Colour.Black));
             placeNewPiece('c', 8, new Bishop(board, Colour.Black));
             placeNewPiece('d', 8, new Queen(board, Colour.Black));
-            placeNewPiece('e', 8, new King(board, Colour.Black));
+            placeNewPiece('e', 8, new King(board, Colour.Black, this));
             placeNewPiece('f', 8, new Bishop(board, Colour.Black));
             placeNewPiece('g', 8, new Knight(board, Colour.Black));
             placeNewPiece('h', 8, new Rook(board, Colour.Black));
