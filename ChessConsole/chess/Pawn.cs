@@ -4,8 +4,10 @@ namespace chess
 {
     class Pawn : Piece
     {
-        public Pawn(Board board, Colour colour) : base(board, colour)
+        private ChessGame game;
+        public Pawn(Board board, Colour colour, ChessGame game) : base(board, colour)
         {
+            this.game = game;
         }
 
         public override string ToString()
@@ -55,6 +57,21 @@ namespace chess
                 {
                     mat[pos.line, pos.column] = true;
                 }
+
+                // #specialmove en passant
+                if (position.line == 3)
+                {
+                    Position left = new Position(position.line, position.column - 1);
+                    if (board.validPosition(left) && enemyExists(left) && board.piece(left) == game.enPassantVulnerable)
+                    {
+                        mat[left.line - 1, left.column] = true;
+                    }
+                    Position right = new Position(position.line, position.column - 1);
+                    if (board.validPosition(right) && enemyExists(right) && board.piece(right) == game.enPassantVulnerable)
+                    {
+                        mat[right.line + 1, right.column] = true;
+                    }
+                }
             }
             //black pieces
             else
@@ -81,6 +98,21 @@ namespace chess
                 if (board.validPosition(pos) && enemyExists(pos))
                 {
                     mat[pos.line, pos.column] = true;
+                }
+
+                // #specialmove en passant
+                if (position.line == 4)
+                {
+                    Position left = new Position(position.line, position.column - 1);
+                    if (board.validPosition(left) && enemyExists(left) && board.piece(left) == game.enPassantVulnerable)
+                    {
+                        mat[left.line + 1, left.column] = true;
+                    }
+                    Position right = new Position(position.line, position.column - 1);
+                    if (board.validPosition(right) && enemyExists(right) && board.piece(right) == game.enPassantVulnerable)
+                    {
+                        mat[right.line - 1, right.column] = true;
+                    }
                 }
             }
 
